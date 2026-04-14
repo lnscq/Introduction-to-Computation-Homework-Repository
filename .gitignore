@@ -1,0 +1,10 @@
+# Cangjie build output and caches
+target/
+build-script-cache/
+.cache/
+
+# Editor-local settings
+.vscode/
+
+# OS-specific files
+.DS_Store

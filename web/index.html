@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>五子棋控制台</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div id="app" class="app-shell">
+        <header class="hero">
+            <div>
+                <p class="hero__eyebrow">CANGJIE GOMOKU</p>
+                <h1>单页前端控制面板</h1>
+                <p class="hero__sub">
+                    前端只负责交互与渲染，棋局规则、落子合法性和最终棋盘状态都来自仓颉后端。
+                </p>
+            </div>
+            <div class="hero__meta" id="heroMeta">服务器状态检查中...</div>
+        </header>
+
+        <main class="layout">
+            <section class="board-panel panel">
+                <div class="panel__header">
+                    <div>
+                        <p class="panel__kicker">Board</p>
+                        <h2>棋盘</h2>
+                    </div>
+                    <button id="restartButton" class="button button--primary" type="button">重新开始</button>
+                </div>
+                <div id="board" class="board" aria-label="五子棋棋盘"></div>
+                <div id="boardHint" class="board-hint">切换模式后开始对局。</div>
+            </section>
+
+            <aside class="sidebar">
+                <section class="panel">
+                    <div class="panel__header panel__header--compact">
+                        <div>
+                            <p class="panel__kicker">Mode</p>
+                            <h2>模式切换</h2>
+                        </div>
+                    </div>
+                    <div id="modeTabs" class="tabs">
+                        <button class="tab is-active" data-mode="local" type="button">本地双人</button>
+                        <button class="tab" data-mode="ai" type="button">人机</button>
+                        <button class="tab" data-mode="lan" type="button">局域网</button>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel__header panel__header--compact">
+                        <div>
+                            <p class="panel__kicker">Status</p>
+                            <h2>当前状态</h2>
+                        </div>
+                    </div>
+                    <dl id="statusList" class="status-list"></dl>
+                </section>
+
+                <section id="lanPanel" class="panel panel--hidden">
+                    <div class="panel__header panel__header--compact">
+                        <div>
+                            <p class="panel__kicker">LAN</p>
+                            <h2>房间</h2>
+                        </div>
+                    </div>
+
+                    <div class="room-actions">
+                        <button id="createRoomButton" class="button button--primary" type="button">创建房间</button>
+                        <div class="join-form">
+                            <label class="input-label" for="roomIdInput">加入房间</label>
+                            <div class="join-form__row">
+                                <input id="roomIdInput" class="text-input" type="text" placeholder="输入 roomId" autocomplete="off">
+                                <button id="joinRoomButton" class="button" type="button">加入</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="roomCard" class="room-card">
+                        <div>
+                            <span class="room-card__label">roomId</span>
+                            <strong id="roomIdValue">未加入</strong>
+                        </div>
+                        <div>
+                            <span class="room-card__label">连接状态</span>
+                            <strong id="roomConnectionValue">空闲</strong>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel__header panel__header--compact">
+                        <div>
+                            <p class="panel__kicker">Cloud</p>
+                            <h2>对局记录</h2>
+                        </div>
+                        <button id="refreshHistoryButton" class="button" type="button">刷新</button>
+                    </div>
+                    <p id="firebaseStatus" class="firebase-status">Firebase 未配置</p>
+                    <div id="historyEmpty" class="history-empty">
+                        配置 Firestore 后，这里会显示最近完成的对局。
+                    </div>
+                    <div id="historyList" class="history-list"></div>
+                </section>
+
+                <section id="messagePanel" class="message-panel" aria-live="polite"></section>
+            </aside>
+        </main>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+</body>
+</html>
