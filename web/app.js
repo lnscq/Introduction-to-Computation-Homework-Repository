@@ -17,12 +17,12 @@ const HISTORY_LIMIT = 8;
 const FIRESTORE_COLLECTION = "gomoku_games";
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID",
+    apiKey: "AIzaSyA9rc8l4GIE0vdM-e0Qa-YtN1iqbiMCuBY",
+    authDomain: "introduction-to-computation.firebaseapp.com",
+    projectId: "introduction-to-computation",
+    storageBucket: "introduction-to-computation.firebasestorage.app",
+    messagingSenderId: "751826795764",
+    appId: "1:751826795764:web:2a64f1dbcc122ee3cdb2a1",
 };
 
 const state = {
@@ -161,6 +161,13 @@ function buildFinishedGameKey(game) {
     return `game_${hashText(signature)}`;
 }
 
+function serializeBoard(board) {
+    if (!Array.isArray(board)) {
+        return [];
+    }
+    return board.map((row) => Array.isArray(row) ? row.join(",") : "");
+}
+
 function formatTimestamp(value) {
     if (!value) {
         return "时间同步中";
@@ -277,7 +284,7 @@ async function persistFinishedGame(game) {
         playerStone: game.playerStone || null,
         connectionStatus: game.connectionStatus || null,
         lastMove: game.lastMove || null,
-        board: game.board,
+        boardRows: serializeBoard(game.board),
         completedAtClient: Date.now(),
         completedAt: serverTimestamp(),
     };
